@@ -1,0 +1,285 @@
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------------
+   Design tokens. Dark is the default; light is a full alternative palette.
+   Accent: mint (progress, success) + periwinkle (secondary). Each level has its own hue.
+   --------------------------------------------------------------------------------- */
+:root {
+  color-scheme: dark;
+  --bg: #0b0d12;
+  --surface: #11141b;
+  --surface-2: #171b24;
+  --surface-3: #1f2430;
+  --line: #262c3a;
+  --line-strong: #353d51;
+  --ink: #e8ebf2;
+  --muted: #a1a9ba;
+  --faint: #6f788c;
+  --accent: #3ddbb0;
+  --accent-ink: #03231a;
+  --accent-soft: rgb(61 219 176 / 0.12);
+  --iris: #8b9bff;
+  --iris-soft: rgb(139 155 255 / 0.13);
+  --warn: #f5b84b;
+  --warn-soft: rgb(245 184 75 / 0.13);
+  --danger: #ff7285;
+  --danger-soft: rgb(255 114 133 / 0.13);
+  --l1: #3ddbb0;
+  --l2: #6aa8ff;
+  --l3: #b08cff;
+  --l4: #ffb454;
+  --shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 8px 30px rgb(0 0 0 / 0.28);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f5f6fa;
+  --surface: #ffffff;
+  --surface-2: #f0f2f7;
+  --surface-3: #e6e9f1;
+  --line: #dde1ec;
+  --line-strong: #c3c9d9;
+  --ink: #131625;
+  --muted: #566077;
+  --faint: #8590a6;
+  --accent: #0c8f6e;
+  --accent-ink: #ffffff;
+  --accent-soft: rgb(12 143 110 / 0.1);
+  --iris: #4656d1;
+  --iris-soft: rgb(70 86 209 / 0.1);
+  --warn: #a8690a;
+  --warn-soft: rgb(168 105 10 / 0.11);
+  --danger: #c4283f;
+  --danger-soft: rgb(196 40 63 / 0.09);
+  --l1: #0c8f6e;
+  --l2: #2563c9;
+  --l3: #7646d6;
+  --l4: #b66a00;
+  --shadow: 0 1px 2px rgb(20 25 50 / 0.06), 0 8px 24px rgb(20 25 50 / 0.06);
+}
+
+@media (prefers-color-scheme: light) {
+  :root[data-theme='system'] {
+    color-scheme: light;
+    --bg: #f5f6fa;
+    --surface: #ffffff;
+    --surface-2: #f0f2f7;
+    --surface-3: #e6e9f1;
+    --line: #dde1ec;
+    --line-strong: #c3c9d9;
+    --ink: #131625;
+    --muted: #566077;
+    --faint: #8590a6;
+    --accent: #0c8f6e;
+    --accent-ink: #ffffff;
+    --accent-soft: rgb(12 143 110 / 0.1);
+    --iris: #4656d1;
+    --iris-soft: rgb(70 86 209 / 0.1);
+    --warn: #a8690a;
+    --warn-soft: rgb(168 105 10 / 0.11);
+    --danger: #c4283f;
+    --danger-soft: rgb(196 40 63 / 0.09);
+    --l1: #0c8f6e;
+    --l2: #2563c9;
+    --l3: #7646d6;
+    --l4: #b66a00;
+    --shadow: 0 1px 2px rgb(20 25 50 / 0.06), 0 8px 24px rgb(20 25 50 / 0.06);
+  }
+}
+
+@theme inline {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface-2);
+  --color-surface3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line2: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accentink: var(--accent-ink);
+  --color-accentsoft: var(--accent-soft);
+  --color-iris: var(--iris);
+  --color-irissoft: var(--iris-soft);
+  --color-warn: var(--warn);
+  --color-warnsoft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-dangersoft: var(--danger-soft);
+  --color-l1: var(--l1);
+  --color-l2: var(--l2);
+  --color-l3: var(--l3);
+  --color-l4: var(--l4);
+  --shadow-card: var(--shadow);
+}
+
+html {
+  background: var(--bg);
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+::selection {
+  background: var(--accent-soft);
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Safe areas for notched phones and the installed PWA */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Rendered curriculum markdown */
+.prose-q {
+  color: var(--ink);
+  font-size: 0.94rem;
+}
+.prose-q > * + * {
+  margin-top: 0.7em;
+}
+.prose-q p {
+  margin: 0;
+  color: var(--muted);
+}
+.prose-q strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.prose-q em {
+  color: var(--ink);
+  font-style: normal;
+  font-weight: 500;
+  background: linear-gradient(transparent 62%, var(--iris-soft) 62%);
+}
+.prose-q a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  text-underline-offset: 3px;
+  word-break: break-word;
+}
+.prose-q a:hover {
+  text-decoration-color: var(--accent);
+}
+.prose-q ul,
+.prose-q ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--muted);
+}
+.prose-q li {
+  margin: 0.3em 0;
+  padding-left: 0.2em;
+}
+.prose-q li::marker {
+  color: var(--faint);
+}
+.prose-q code {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  background: var(--surface-3);
+  color: var(--ink);
+  padding: 0.12em 0.4em;
+  border-radius: 6px;
+  word-break: break-word;
+}
+.prose-q table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+.prose-q th,
+.prose-q td {
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.7rem;
+  text-align: left;
+  vertical-align: top;
+}
+.prose-q th {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+.prose-q blockquote {
+  margin-left: 0;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--line-strong);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes sheen {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(220%);
+  }
+}
+.animate-rise {
+  animation: rise 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.animate-pop {
+  animation: pop 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* custom scrollbars (subtle) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
